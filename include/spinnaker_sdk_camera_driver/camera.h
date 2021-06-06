@@ -1,8 +1,9 @@
 #ifndef CAMERA_HEADER
 #define CAMERA_HEADER
 
-#include "std_include.h"
 #include "serialization.h"
+#include "std_include.h"
+
 #include <boost/archive/binary_oarchive.hpp>
 #include <boost/filesystem.hpp>
 
@@ -12,12 +13,11 @@ using namespace Spinnaker::GenICam;
 using namespace cv;
 using namespace std;
 
-namespace acquisition {
-
-    class Camera {
-
-    public:
-
+namespace acquisition
+{
+    class Camera
+    {
+      public:
         ~Camera();
         Camera(CameraPtr);
 
@@ -37,7 +37,7 @@ namespace acquisition {
         void setBoolValue(string, bool);
 
         void trigger();
-        
+
         void setISPEnable();
         void setFREnable();
         void setPixelFormat(gcstring formatPic);
@@ -62,17 +62,29 @@ namespace acquisition {
         string getTLNodeStringValue(string node_string);
         double getFloatValueMax(string node_string);
         string get_id();
-        void make_master() { MASTER_ = true; ROS_DEBUG_STREAM( "camera " << get_id() << " set as master"); }
-        bool is_master() { return MASTER_; }
-        void set_color(bool flag) { COLOR_ = flag; }
-        void setGetNextImageTimeout(uint64_t get_next_image_timeout) { GET_NEXT_IMAGE_TIMEOUT_ = get_next_image_timeout; }
+        void make_master()
+        {
+            MASTER_ = true;
+            ROS_DEBUG_STREAM("camera " << get_id() << " set as master");
+        }
+        bool is_master()
+        {
+            return MASTER_;
+        }
+        void set_color(bool flag)
+        {
+            COLOR_ = flag;
+        }
+        void setGetNextImageTimeout(uint64_t get_next_image_timeout)
+        {
+            GET_NEXT_IMAGE_TIMEOUT_ = get_next_image_timeout;
+        }
         bool verifyBinning(int binningDesired);
         void calibrationParamsTest(int calibrationWidth, int calibrationHeight);
-        
-    private:
 
+      private:
         Mat convert_to_mat(ImagePtr);
-        
+
         CameraPtr pCam_;
         int64_t timestamp_;
         int frameID_;
@@ -81,9 +93,8 @@ namespace acquisition {
         bool COLOR_;
         bool MASTER_;
         uint64_t GET_NEXT_IMAGE_TIMEOUT_;
-
     };
 
-}
+}    // namespace acquisition
 
 #endif
