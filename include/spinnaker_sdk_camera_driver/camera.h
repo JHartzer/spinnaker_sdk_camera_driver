@@ -86,13 +86,13 @@ namespace acquisition
         Mat convert_to_mat(ImagePtr);
 
         CameraPtr pCam_;
-        int64_t timestamp_;
-        int frameID_;
-        int lastFrameID_;
+        int64_t timestamp_ {0};
+        int frameID_ {0};
+        int lastFrameID_ {-1};
 
         bool COLOR_;
-        bool MASTER_;
-        uint64_t GET_NEXT_IMAGE_TIMEOUT_;
+        bool MASTER_ {false};
+        uint64_t GET_NEXT_IMAGE_TIMEOUT_ {EVENT_TIMEOUT_INFINITE};
     };
 
 }    // namespace acquisition

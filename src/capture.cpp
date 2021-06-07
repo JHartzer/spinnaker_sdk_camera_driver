@@ -108,7 +108,7 @@ void acquisition::Capture::init_variables_register_to_ros()
     skip_num_                         = 20;
     init_delay_                       = 1;
     master_fps_                       = 20.0;
-    binning_                          = 1;
+    binning_                          = 2;
     SPINNAKER_GET_NEXT_IMAGE_TIMEOUT_ = 2000;
     todays_date_                      = todays_date();
 
@@ -191,7 +191,7 @@ void acquisition::Capture::load_cameras()
 
     numCameras_ = camList_.GetSize();
     ROS_ASSERT_MSG(numCameras_, "No cameras found!");
-    ROS_INFO_STREAM("Numer of cameras found: " << numCameras_);
+    ROS_INFO_STREAM("Number of cameras found: " << numCameras_);
     ROS_INFO_STREAM(" Cameras connected: " << numCameras_);
 
     for (int i = 0; i < numCameras_; i++)
@@ -579,7 +579,7 @@ void acquisition::Capture::read_parameters()
         else
         {
             binning_ = 1;
-            ROS_INFO("  'binning'=%d invalid, Using defauly binning=", binning_);
+            ROS_INFO("  'binning'=%d invalid, Using default binning=", binning_);
         }
     }
     else
@@ -1131,7 +1131,7 @@ void acquisition::Capture::get_mat_images()
 
     for (int i = 0; i < numCameras_; i++)
     {
-        // ROS_INFO_STREAM("CAM ID IS "<< i);
+        // ROS_INFO_STREAM("CAM ID IS " << i);
         frames_[i] = cams[i].grab_mat_frame();
         // ROS_INFO("sucess");
         time_stamps_[i] = cams[i].get_time_stamp();

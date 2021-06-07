@@ -8,7 +8,7 @@ acquisition::Camera::~Camera()
 
 acquisition::Camera::Camera(CameraPtr pCam)
 {
-    pCam_ = pCam;
+    this->pCam_ = pCam;
 
     if (pCam_->IsInitialized())
     {
@@ -16,12 +16,6 @@ acquisition::Camera::Camera(CameraPtr pCam)
         pCam_->EndAcquisition();
         pCam_->DeInit();
     }
-
-    lastFrameID_            = -1;
-    frameID_                = -1;
-    MASTER_                 = false;
-    timestamp_              = 0;
-    GET_NEXT_IMAGE_TIMEOUT_ = EVENT_TIMEOUT_INFINITE;
 }
 
 void acquisition::Camera::init()
@@ -98,6 +92,7 @@ Mat acquisition::Camera::grab_mat_frame()
     {
         ros::shutdown();
     }
+    return cv::Mat {};
 }
 
 Mat acquisition::Camera::convert_to_mat(ImagePtr pImage)
