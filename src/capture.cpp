@@ -1073,8 +1073,10 @@ void acquisition::Capture::export_to_ROS()
             img_msgs[i] = cv_bridge::CvImage(img_msg_header, "bgr8", frames_[i]).toImageMsg();
         else
             img_msgs[i] = cv_bridge::CvImage(img_msg_header, "mono8", frames_[i]).toImageMsg();
-
-        camera_image_pubs[i].publish(img_msgs[i], cam_info_msgs[i]);
+        if ((img_msgs[i]->height > 0) && (img_msgs[i]->width > 0))
+        {
+            camera_image_pubs[i].publish(img_msgs[i], cam_info_msgs[i]);
+        }
     }
     export_to_ROS_time_ = ros::Time::now().toSec() - t;
     ;
